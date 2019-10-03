@@ -3,12 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>bi.know.pentaho.birt.plugin</groupId>
 	<artifactId>BIRTOutput</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<pdi.version>7.1-SNAPSHOT</pdi.version>
-		<pdi.dir>/opt/pentaho/pdi/ce/7.1</pdi.dir>
+		<pdi.version>8.3.0.0-371</pdi.version>
+		<pdi.dir>/opt/pentaho/pdi/ce/8.3</pdi.dir>
 	</properties>
 	
 	
@@ -17,7 +17,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.3.1</version>
+				<version>3.1.2</version>
 				<configuration>
 					<outputDirectory>${pdi.dir}/plugins/BIRTOutput</outputDirectory>
 				</configuration>
@@ -25,7 +25,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
-				<version>2.10</version>
+				<version>3.1.1</version>
 				<executions>
 					<execution>
 						<id>copy-dependencies</id>
@@ -47,7 +47,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
-				<version>3.0.2</version>
+				<version>3.1.0</version>
 				<executions>
 					<execution>
 						<id>copy-resources</id>
@@ -70,7 +70,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.6.1</version>
+				<version>3.8.1</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
@@ -92,7 +92,7 @@
 		<dependency>
 			<groupId>org.eclipse.birt.runtime</groupId>
 			<artifactId>org.eclipse.birt.runtime</artifactId>
-			<version>4.4.1</version>
+			<version>4.6.0-20160607</version>
 		</dependency>
 		<dependency>
 			<groupId>pentaho-kettle</groupId>

@@ -1,0 +1,1187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="birtoutput" default="all">
+  
+  
+  <property file="birtoutput.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*.yarb/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.war"/>
+    <include name="*.swc"/>
+    <include name="*.apk"/>
+    <include name="*.zip"/>
+    <include name="*.egg"/>
+    <include name="*.ear"/>
+    <include name="*.ane"/>
+    <include name="*.jar"/>
+    <include name="*.klib"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+    <exclude name="**/?*.aj"/>
+  </patternset>
+  
+  <property name="project.jdk.home" value=""/>
+  <property name="project.jdk.bin" value=""/>
+  <property name="project.jdk.classpath" value=""/>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.maven:_asm:asm:3.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/asm/asm/3.2/asm-3.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_bouncycastle:bcmail-jdk14:138.classpath">
+    <pathelement location="${path.variable.maven_repository}/bouncycastle/bcmail-jdk14/138/bcmail-jdk14-138.jar"/>
+  </path>
+  
+  <path id="library.maven:_bouncycastle:bcprov-jdk14:138.classpath">
+    <pathelement location="${path.variable.maven_repository}/bouncycastle/bcprov-jdk14/138/bcprov-jdk14-138.jar"/>
+  </path>
+  
+  <path id="library.maven:_bsf:bsf:2.4.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/bsf/bsf/2.4.0/bsf-2.4.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_cglib:cglib-nodep:2.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/cglib/cglib-nodep/2.2/cglib-nodep-2.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.enterprisedt:edtftpj:2.1.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/enterprisedt/edtftpj/2.1.0/edtftpj-2.1.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.fasterxml.jackson.core:jackson-annotations:2.9.8.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/fasterxml/jackson/core/jackson-annotations/2.9.8/jackson-annotations-2.9.8.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.fasterxml.jackson.core:jackson-core:2.9.8.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/fasterxml/jackson/core/jackson-core/2.9.8/jackson-core-2.9.8.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.fasterxml.jackson.core:jackson-databind:2.9.8.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/fasterxml/jackson/core/jackson-databind/2.9.8/jackson-databind-2.9.8.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.google.guava:guava:17.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/google/guava/guava/17.0/guava-17.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.googlecode.jsendnsca:jsendnsca:2.0.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/googlecode/jsendnsca/jsendnsca/2.0.1/jsendnsca-2.0.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.googlecode.json-simple:json-simple:1.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/googlecode/json-simple/json-simple/1.1/json-simple-1.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.googlecode.log4jdbc:log4jdbc:1.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/googlecode/log4jdbc/log4jdbc/1.2/log4jdbc-1.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.jcraft:jsch:0.1.54.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/jcraft/jsch/0.1.54/jsch-0.1.54.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.jcraft:jzlib:1.0.7.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/jcraft/jzlib/1.0.7/jzlib-1.0.7.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.lowagie:itext-rtf:2.1.7.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/lowagie/itext-rtf/2.1.7/itext-rtf-2.1.7.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.lowagie:itext:2.1.7.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/lowagie/itext/2.1.7/itext-2.1.7.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.sun.jersey.contribs:jersey-apache-client4:1.19.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/contribs/jersey-apache-client4/1.19.1/jersey-apache-client4-1.19.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.sun.jersey:jersey-bundle:1.19.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/jersey-bundle/1.19.1/jersey-bundle-1.19.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.sun.jersey:jersey-client:1.19.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/jersey-client/1.19.1/jersey-client-1.19.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.sun.jersey:jersey-core:1.19.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/jersey-core/1.19.1/jersey-core-1.19.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.sun.mail:javax.mail:1.6.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/sun/mail/javax.mail/1.6.1/javax.mail-1.6.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.wcohen:com.wcohen.secondstring:0.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/wcohen/com.wcohen.secondstring/0.1/com.wcohen.secondstring-0.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_commons-beanutils:commons-beanutils:1.9.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-beanutils/commons-beanutils/1.9.3/commons-beanutils-1.9.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_commons-cli:commons-cli:1.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-cli/commons-cli/1.2/commons-cli-1.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_commons-codec:commons-codec:1.10.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-codec/commons-codec/1.10/commons-codec-1.10.jar"/>
+  </path>
+  
+  <path id="library.maven:_commons-collections:commons-collections:3.2.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_commons-dbcp:commons-dbcp:1.4.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-dbcp/commons-dbcp/1.4/commons-dbcp-1.4.jar"/>
+  </path>
+  
+  <path id="library.maven:_commons-discovery:commons-discovery:0.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-discovery/commons-discovery/0.2/commons-discovery-0.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_commons-io:commons-io:2.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-io/commons-io/2.2/commons-io-2.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_commons-lang:commons-lang:2.6.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-lang/commons-lang/2.6/commons-lang-2.6.jar"/>
+  </path>
+  
+  <path id="library.maven:_commons-logging:commons-logging:1.1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_commons-math:commons-math:1.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-math/commons-math/1.1/commons-math-1.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_commons-net:commons-net:1.4.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-net/commons-net/1.4.1/commons-net-1.4.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_commons-pool:commons-pool:1.5.7.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-pool/commons-pool/1.5.7/commons-pool-1.5.7.jar"/>
+  </path>
+  
+  <path id="library.maven:_commons-validator:commons-validator:1.3.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-validator/commons-validator/1.3.1/commons-validator-1.3.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_eigenbase:eigenbase-properties:1.1.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/eigenbase/eigenbase-properties/1.1.2/eigenbase-properties-1.1.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_eigenbase:eigenbase-resgen:1.3.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/eigenbase/eigenbase-resgen/1.3.1/eigenbase-resgen-1.3.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_eigenbase:eigenbase-xom:1.3.5.classpath">
+    <pathelement location="${path.variable.maven_repository}/eigenbase/eigenbase-xom/1.3.5/eigenbase-xom-1.3.5.jar"/>
+  </path>
+  
+  <path id="library.maven:_feed4j:feed4j:1.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/feed4j/feed4j/1.0/feed4j-1.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_ftp4che:ftp4che:0.7.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/ftp4che/ftp4che/0.7.1/ftp4che-0.7.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_georss-rome:georss-rome:0.9.8.classpath">
+    <pathelement location="${path.variable.maven_repository}/georss-rome/georss-rome/0.9.8/georss-rome-0.9.8.jar"/>
+  </path>
+  
+  <path id="library.maven:_infobright:infobright-core:3.4.classpath">
+    <pathelement location="${path.variable.maven_repository}/infobright/infobright-core/3.4/infobright-core-3.4.jar"/>
+  </path>
+  
+  <path id="library.maven:_io.reactivex.rxjava2:rxjava:2.2.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/io/reactivex/rxjava2/rxjava/2.2.3/rxjava-2.2.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_javacup:javacup:10k.classpath">
+    <pathelement location="${path.variable.maven_repository}/javacup/javacup/10k/javacup-10k.jar"/>
+  </path>
+  
+  <path id="library.maven:_javadbf:javadbf:20081125.classpath">
+    <pathelement location="${path.variable.maven_repository}/javadbf/javadbf/20081125/javadbf-20081125.jar"/>
+  </path>
+  
+  <path id="library.maven:_javax.activation:activation:1.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/javax/activation/activation/1.1/activation-1.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_javax.servlet:jsp-api:2.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/javax/servlet/jsp-api/2.0/jsp-api-2.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_javax.servlet:servlet-api:2.4.classpath">
+    <pathelement location="${path.variable.maven_repository}/javax/servlet/servlet-api/2.4/servlet-api-2.4.jar"/>
+  </path>
+  
+  <path id="library.maven:_javax.validation:validation-api:1.0.0.ga.classpath">
+    <pathelement location="${path.variable.maven_repository}/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA.jar"/>
+  </path>
+  
+  <path id="library.maven:_javax.websocket:javax.websocket-api:1.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/javax/websocket/javax.websocket-api/1.0/javax.websocket-api-1.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_javax.xml:jaxrpc-api:1.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/javax/xml/jaxrpc-api/1.1/jaxrpc-api-1.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_jexcelapi:jxl:2.6.12.classpath">
+    <pathelement location="${path.variable.maven_repository}/jexcelapi/jxl/2.6.12/jxl-2.6.12.jar"/>
+  </path>
+  
+  <path id="library.maven:_jfree:jcommon:1.0.16.classpath">
+    <pathelement location="${path.variable.maven_repository}/jfree/jcommon/1.0.16/jcommon-1.0.16.jar"/>
+  </path>
+  
+  <path id="library.maven:_jfree:jfreechart:1.0.13.classpath">
+    <pathelement location="${path.variable.maven_repository}/jfree/jfreechart/1.0.13/jfreechart-1.0.13.jar"/>
+  </path>
+  
+  <path id="library.maven:_jsonpath:jsonpath:1.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/jsonpath/jsonpath/1.0/jsonpath-1.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_jug-lgpl:jug-lgpl:2.0.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/jug-lgpl/jug-lgpl/2.0.0/jug-lgpl-2.0.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_ldapjdk:ldapjdk:20000524.classpath">
+    <pathelement location="${path.variable.maven_repository}/ldapjdk/ldapjdk/20000524/ldapjdk-20000524.jar"/>
+  </path>
+  
+  <path id="library.maven:_log4j:log4j:1.2.14.classpath">
+    <pathelement location="${path.variable.maven_repository}/log4j/log4j/1.2.14/log4j-1.2.14.jar"/>
+  </path>
+  
+  <path id="library.maven:_monetdb:monetdb-jdbc:2.8.classpath">
+    <pathelement location="${path.variable.maven_repository}/monetdb/monetdb-jdbc/2.8/monetdb-jdbc-2.8.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.dev.javacc:javacc:5.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/dev/javacc/javacc/5.0/javacc-5.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.sf.ehcache:ehcache-core:2.5.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/sf/ehcache/ehcache-core/2.5.1/ehcache-core-2.5.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.sf.saxon:saxon-dom:9.1.0.8.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/sf/saxon/saxon-dom/9.1.0.8/saxon-dom-9.1.0.8.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.sf.saxon:saxon:9.1.0.8.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/sf/saxon/saxon/9.1.0.8/saxon-9.1.0.8.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.sf.scannotation:scannotation:1.0.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/sf/scannotation/scannotation/1.0.2/scannotation-1.0.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.sourceforge.nekohtml:nekohtml:1.9.15.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/sourceforge/nekohtml/nekohtml/1.9.15/nekohtml-1.9.15.jar"/>
+  </path>
+  
+  <path id="library.maven:_ognl:ognl:2.6.9.classpath">
+    <pathelement location="${path.variable.maven_repository}/ognl/ognl/2.6.9/ognl-2.6.9.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.antlr:antlr-complete:3.5.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/antlr/antlr-complete/3.5.2/antlr-complete-3.5.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.commons:commons-collections4:4.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/commons/commons-collections4/4.1/commons-collections4-4.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.commons:commons-compress:1.18.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/commons/commons-compress/1.18/commons-compress-1.18.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.commons:commons-vfs2:2.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/commons/commons-vfs2/2.2/commons-vfs2-2.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.httpcomponents:httpclient:4.5.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/httpcomponents/httpclient/4.5.3/httpclient-4.5.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.httpcomponents:httpcore:4.4.6.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/httpcomponents/httpcore/4.4.6/httpcore-4.4.6.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.poi:poi-ooxml-schemas:3.17.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/poi/poi-ooxml-schemas/3.17/poi-ooxml-schemas-3.17.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.poi:poi-ooxml:3.17.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/poi/poi-ooxml/3.17/poi-ooxml-3.17.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.poi:poi:3.17.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/poi/poi/3.17/poi-3.17.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.xmlbeans:xmlbeans:2.6.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/xmlbeans/xmlbeans/2.6.0/xmlbeans-2.6.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.xmlgraphics:batik-anim:1.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/xmlgraphics/batik-anim/1.9.1/batik-anim-1.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.xmlgraphics:batik-awt-util:1.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/xmlgraphics/batik-awt-util/1.9.1/batik-awt-util-1.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.xmlgraphics:batik-bridge:1.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/xmlgraphics/batik-bridge/1.9.1/batik-bridge-1.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.xmlgraphics:batik-codec:1.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/xmlgraphics/batik-codec/1.9.1/batik-codec-1.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.xmlgraphics:batik-constants:1.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/xmlgraphics/batik-constants/1.9.1/batik-constants-1.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.xmlgraphics:batik-css:1.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/xmlgraphics/batik-css/1.9.1/batik-css-1.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.xmlgraphics:batik-dom:1.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/xmlgraphics/batik-dom/1.9.1/batik-dom-1.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.xmlgraphics:batik-ext:1.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/xmlgraphics/batik-ext/1.9.1/batik-ext-1.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.xmlgraphics:batik-gui-util:1.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/xmlgraphics/batik-gui-util/1.9.1/batik-gui-util-1.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.xmlgraphics:batik-gvt:1.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/xmlgraphics/batik-gvt/1.9.1/batik-gvt-1.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.xmlgraphics:batik-i18n:1.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/xmlgraphics/batik-i18n/1.9.1/batik-i18n-1.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.xmlgraphics:batik-parser:1.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/xmlgraphics/batik-parser/1.9.1/batik-parser-1.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.xmlgraphics:batik-script:1.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/xmlgraphics/batik-script/1.9.1/batik-script-1.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.xmlgraphics:batik-svg-dom:1.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/xmlgraphics/batik-svg-dom/1.9.1/batik-svg-dom-1.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.xmlgraphics:batik-transcoder:1.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/xmlgraphics/batik-transcoder/1.9.1/batik-transcoder-1.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.xmlgraphics:batik-util:1.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/xmlgraphics/batik-util/1.9.1/batik-util-1.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.xmlgraphics:batik-xml:1.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/xmlgraphics/batik-xml/1.9.1/batik-xml-1.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.xmlgraphics:xmlgraphics-commons:2.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/xmlgraphics/xmlgraphics-commons/2.2/xmlgraphics-commons-2.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.beanshell:bsh:1.3.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/beanshell/bsh/1.3.0/bsh-1.3.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.codehaus.groovy:groovy-all:2.4.8.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/groovy/groovy-all/2.4.8/groovy-all-2.4.8.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.codehaus.janino:commons-compiler:3.0.8.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/janino/commons-compiler/3.0.8/commons-compiler-3.0.8.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.codehaus.janino:janino:3.0.8.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/janino/janino/3.0.8/janino-3.0.8.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.dom4j:dom4j:2.1.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/dom4j/dom4j/2.1.1/dom4j-2.1.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime.3_7_1:com.lowagie.text:2.1.7.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/3_7_1/com.lowagie.text/2.1.7/com.lowagie.text-2.1.7.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime.3_7_1:javax.wsdl:1.5.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/3_7_1/javax.wsdl/1.5.1/javax.wsdl-1.5.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime.3_7_1:org.apache.batik.bridge:1.6.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/3_7_1/org.apache.batik.bridge/1.6.0/org.apache.batik.bridge-1.6.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime.3_7_1:org.apache.batik.css:1.6.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/3_7_1/org.apache.batik.css/1.6.0/org.apache.batik.css-1.6.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime.3_7_1:org.apache.batik.dom.svg:1.6.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/3_7_1/org.apache.batik.dom.svg/1.6.0/org.apache.batik.dom.svg-1.6.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime.3_7_1:org.apache.batik.ext.awt:1.6.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/3_7_1/org.apache.batik.ext.awt/1.6.0/org.apache.batik.ext.awt-1.6.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime.3_7_1:org.apache.batik.parser:1.6.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/3_7_1/org.apache.batik.parser/1.6.0/org.apache.batik.parser-1.6.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime.3_7_1:org.apache.batik.pdf:1.6.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/3_7_1/org.apache.batik.pdf/1.6.0/org.apache.batik.pdf-1.6.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime.3_7_1:org.apache.batik.svggen:1.6.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/3_7_1/org.apache.batik.svggen/1.6.0/org.apache.batik.svggen-1.6.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime.3_7_1:org.apache.batik.transcoder:1.6.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/3_7_1/org.apache.batik.transcoder/1.6.0/org.apache.batik.transcoder-1.6.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime.3_7_1:org.apache.batik.util.gui:1.6.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/3_7_1/org.apache.batik.util.gui/1.6.0/org.apache.batik.util.gui-1.6.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime.3_7_1:org.apache.batik.util:1.6.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/3_7_1/org.apache.batik.util/1.6.0/org.apache.batik.util-1.6.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime.3_7_1:org.apache.batik.xml:1.6.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/3_7_1/org.apache.batik.xml/1.6.0/org.apache.batik.xml-1.6.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime.3_7_1:org.apache.xerces:2.9.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/3_7_1/org.apache.xerces/2.9.0/org.apache.xerces-2.9.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime.3_7_1:org.apache.xml.resolver:1.2.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/3_7_1/org.apache.xml.resolver/1.2.0/org.apache.xml.resolver-1.2.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime.3_7_1:org.apache.xml.serializer:2.7.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/3_7_1/org.apache.xml.serializer/2.7.1/org.apache.xml.serializer-2.7.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime.3_7_1:org.w3c.dom.svg:1.1.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/3_7_1/org.w3c.dom.svg/1.1.0/org.w3c.dom.svg-1.1.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:com.ibm.icu:56.1.0.v201601250100.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/com.ibm.icu/56.1.0.v201601250100/com.ibm.icu-56.1.0.v201601250100.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:javax.xml.stream:1.0.1.v201004272200.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/javax.xml.stream/1.0.1.v201004272200/javax.xml.stream-1.0.1.v201004272200.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:javax.xml:1.3.4.v201005080400.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/javax.xml/1.3.4.v201005080400/javax.xml-1.3.4.v201005080400.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:net.sourceforge.lpg.lpgjavaruntime:1.1.0.v201004271650.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/net.sourceforge.lpg.lpgjavaruntime/1.1.0.v201004271650/net.sourceforge.lpg.lpgjavaruntime-1.1.0.v201004271650.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.apache.batik.dom:1.6.1.v201505192100.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.apache.batik.dom/1.6.1.v201505192100/org.apache.batik.dom-1.6.1.v201505192100.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.apache.derby:10.11.1.1_v201605202053.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.apache.derby/10.11.1.1_v201605202053/org.apache.derby-10.11.1.1_v201605202053.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.apache.lucene.core:3.5.0.v20120725-1805.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.apache.lucene.core/3.5.0.v20120725-1805/org.apache.lucene.core-3.5.0.v20120725-1805.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.birt.runtime:4.6.0-20160607.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.birt.runtime/4.6.0-20160607/org.eclipse.birt.runtime-4.6.0-20160607.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.connectivity.apache.derby.dbdefinition:1.1.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.connectivity.apache.derby.dbdefinition/1.1.0.201603142002/org.eclipse.datatools.connectivity.apache.derby.dbdefinition-1.1.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.connectivity.apache.derby:1.1.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.connectivity.apache.derby/1.1.0.201603142002/org.eclipse.datatools.connectivity.apache.derby-1.1.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.connectivity.console.profile:1.1.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.connectivity.console.profile/1.1.0.201603142002/org.eclipse.datatools.connectivity.console.profile-1.1.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.connectivity.db.generic:1.1.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.connectivity.db.generic/1.1.0.201603142002/org.eclipse.datatools.connectivity.db.generic-1.1.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.connectivity.dbdefinition.genericjdbc:1.1.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.connectivity.dbdefinition.genericJDBC/1.1.0.201603142002/org.eclipse.datatools.connectivity.dbdefinition.genericJDBC-1.1.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.connectivity.oda.consumer:3.3.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.connectivity.oda.consumer/3.3.0.201603142002/org.eclipse.datatools.connectivity.oda.consumer-3.3.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.connectivity.oda.design:3.4.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.connectivity.oda.design/3.4.0.201603142002/org.eclipse.datatools.connectivity.oda.design-3.4.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.connectivity.oda.flatfile:3.2.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.connectivity.oda.flatfile/3.2.0.201603142002/org.eclipse.datatools.connectivity.oda.flatfile-3.2.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.connectivity.oda.profile:3.3.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.connectivity.oda.profile/3.3.0.201603142002/org.eclipse.datatools.connectivity.oda.profile-3.3.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.connectivity.oda:3.5.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.connectivity.oda/3.5.0.201603142002/org.eclipse.datatools.connectivity.oda-3.5.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.connectivity.sqm.core:1.3.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.connectivity.sqm.core/1.3.0.201603142002/org.eclipse.datatools.connectivity.sqm.core-1.3.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.connectivity:1.13.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.connectivity/1.13.0.201603142002/org.eclipse.datatools.connectivity-1.13.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.enablement.hsqldb.dbdefinition:1.1.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.enablement.hsqldb.dbdefinition/1.1.0.201603142002/org.eclipse.datatools.enablement.hsqldb.dbdefinition-1.1.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.enablement.hsqldb:1.1.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.enablement.hsqldb/1.1.0.201603142002/org.eclipse.datatools.enablement.hsqldb-1.1.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.enablement.ibm.db2.iseries.dbdefinition:1.1.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.enablement.ibm.db2.iseries.dbdefinition/1.1.0.201603142002/org.eclipse.datatools.enablement.ibm.db2.iseries.dbdefinition-1.1.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.enablement.ibm.db2.iseries:1.1.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.enablement.ibm.db2.iseries/1.1.0.201603142002/org.eclipse.datatools.enablement.ibm.db2.iseries-1.1.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.enablement.ibm.db2.luw.dbdefinition:1.1.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.enablement.ibm.db2.luw.dbdefinition/1.1.0.201603142002/org.eclipse.datatools.enablement.ibm.db2.luw.dbdefinition-1.1.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.enablement.ibm.db2.luw:1.1.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.enablement.ibm.db2.luw/1.1.0.201603142002/org.eclipse.datatools.enablement.ibm.db2.luw-1.1.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.enablement.ibm.db2.zseries.dbdefinition:1.1.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.enablement.ibm.db2.zseries.dbdefinition/1.1.0.201603142002/org.eclipse.datatools.enablement.ibm.db2.zseries.dbdefinition-1.1.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.enablement.ibm.db2.zseries:1.1.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.enablement.ibm.db2.zseries/1.1.0.201603142002/org.eclipse.datatools.enablement.ibm.db2.zseries-1.1.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.enablement.ibm.db2:1.1.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.enablement.ibm.db2/1.1.0.201603142002/org.eclipse.datatools.enablement.ibm.db2-1.1.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.enablement.ibm.informix.dbdefinition:1.1.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.enablement.ibm.informix.dbdefinition/1.1.0.201603142002/org.eclipse.datatools.enablement.ibm.informix.dbdefinition-1.1.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.enablement.ibm.informix:1.1.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.enablement.ibm.informix/1.1.0.201603142002/org.eclipse.datatools.enablement.ibm.informix-1.1.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.enablement.ibm:1.1.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.enablement.ibm/1.1.0.201603142002/org.eclipse.datatools.enablement.ibm-1.1.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.enablement.msft.sqlserver.dbdefinition:1.1.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.enablement.msft.sqlserver.dbdefinition/1.1.0.201603142002/org.eclipse.datatools.enablement.msft.sqlserver.dbdefinition-1.1.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.enablement.msft.sqlserver:1.1.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.enablement.msft.sqlserver/1.1.0.201603142002/org.eclipse.datatools.enablement.msft.sqlserver-1.1.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.enablement.mysql.dbdefinition:1.1.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.enablement.mysql.dbdefinition/1.1.0.201603142002/org.eclipse.datatools.enablement.mysql.dbdefinition-1.1.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.enablement.mysql:1.1.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.enablement.mysql/1.1.0.201603142002/org.eclipse.datatools.enablement.mysql-1.1.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.enablement.oda.ws:1.3.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.enablement.oda.ws/1.3.0.201603142002/org.eclipse.datatools.enablement.oda.ws-1.3.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.enablement.oda.xml:1.3.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.enablement.oda.xml/1.3.0.201603142002/org.eclipse.datatools.enablement.oda.xml-1.3.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.enablement.oracle.dbdefinition:1.1.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.enablement.oracle.dbdefinition/1.1.0.201603142002/org.eclipse.datatools.enablement.oracle.dbdefinition-1.1.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.enablement.oracle:1.1.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.enablement.oracle/1.1.0.201603142002/org.eclipse.datatools.enablement.oracle-1.1.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.enablement.postgresql.dbdefinition:1.1.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.enablement.postgresql.dbdefinition/1.1.0.201603142002/org.eclipse.datatools.enablement.postgresql.dbdefinition-1.1.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.enablement.postgresql:1.2.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.enablement.postgresql/1.2.0.201603142002/org.eclipse.datatools.enablement.postgresql-1.2.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.enablement.sap.maxdb.dbdefinition:1.1.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.enablement.sap.maxdb.dbdefinition/1.1.0.201603142002/org.eclipse.datatools.enablement.sap.maxdb.dbdefinition-1.1.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.enablement.sap.maxdb:1.1.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.enablement.sap.maxdb/1.1.0.201603142002/org.eclipse.datatools.enablement.sap.maxdb-1.1.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.modelbase.dbdefinition:1.1.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.modelbase.dbdefinition/1.1.0.201603142002/org.eclipse.datatools.modelbase.dbdefinition-1.1.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.modelbase.derby:1.1.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.modelbase.derby/1.1.0.201603142002/org.eclipse.datatools.modelbase.derby-1.1.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.modelbase.sql.query:1.2.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.modelbase.sql.query/1.2.0.201603142002/org.eclipse.datatools.modelbase.sql.query-1.2.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.modelbase.sql:1.1.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.modelbase.sql/1.1.0.201603142002/org.eclipse.datatools.modelbase.sql-1.1.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.sqltools.data.core:1.3.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.sqltools.data.core/1.3.0.201603142002/org.eclipse.datatools.sqltools.data.core-1.3.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.sqltools.parsers.sql.lexer:1.1.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.sqltools.parsers.sql.lexer/1.1.0.201603142002/org.eclipse.datatools.sqltools.parsers.sql.lexer-1.1.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.sqltools.parsers.sql.query:1.3.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.sqltools.parsers.sql.query/1.3.0.201603142002/org.eclipse.datatools.sqltools.parsers.sql.query-1.3.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.sqltools.parsers.sql:1.1.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.sqltools.parsers.sql/1.1.0.201603142002/org.eclipse.datatools.sqltools.parsers.sql-1.1.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.datatools.sqltools.result:1.2.0.201603142002.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.datatools.sqltools.result/1.2.0.201603142002/org.eclipse.datatools.sqltools.result-1.2.0.201603142002.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.emf.common:2.12.0.v20160420-0247.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.emf.common/2.12.0.v20160420-0247/org.eclipse.emf.common-2.12.0.v20160420-0247.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.emf.ecore.change:2.11.0.v20160420-0247.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.emf.ecore.change/2.11.0.v20160420-0247/org.eclipse.emf.ecore.change-2.11.0.v20160420-0247.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.emf.ecore.xmi:2.12.0.v20160420-0247.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.emf.ecore.xmi/2.12.0.v20160420-0247/org.eclipse.emf.ecore.xmi-2.12.0.v20160420-0247.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.emf.ecore:2.12.0.v20160420-0247.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.emf.ecore/2.12.0.v20160420-0247/org.eclipse.emf.ecore-2.12.0.v20160420-0247.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.equinox.app:1.3.400.v20150715-1528.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.equinox.app/1.3.400.v20150715-1528/org.eclipse.equinox.app-1.3.400.v20150715-1528.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.help:3.7.0.v20160602-1307.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.help/3.7.0.v20160602-1307/org.eclipse.help-3.7.0.v20160602-1307.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.orbit.mongodb:2.10.1.v20130422-1135.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.orbit.mongodb/2.10.1.v20130422-1135/org.eclipse.orbit.mongodb-2.10.1.v20130422-1135.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.osgi.services:3.5.100.v20160504-1419.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.osgi.services/3.5.100.v20160504-1419/org.eclipse.osgi.services-3.5.100.v20160504-1419.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.eclipse.update.configurator:3.3.400.v20160506-0750.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.eclipse.update.configurator/3.3.400.v20160506-0750/org.eclipse.update.configurator-3.3.400.v20160506-0750.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.mozilla.javascript:1.7.5.v201504281450.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.mozilla.javascript/1.7.5.v201504281450/org.mozilla.javascript-1.7.5.v201504281450.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.w3c.css.sac:1.3.1.v200903091627.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.w3c.css.sac/1.3.1.v200903091627/org.w3c.css.sac-1.3.1.v200903091627.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.w3c.dom.events:3.0.0.draft20060413_v201105210656.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.w3c.dom.events/3.0.0.draft20060413_v201105210656/org.w3c.dom.events-3.0.0.draft20060413_v201105210656.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.birt.runtime:org.w3c.dom.smil:1.0.1.v200903091627.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/birt/runtime/org.w3c.dom.smil/1.0.1.v200903091627/org.w3c.dom.smil-1.0.1.v200903091627.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.core:commands:3.3.0-i20070605-0010.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/core/commands/3.3.0-i20070605-0010/commands-3.3.0-I20070605-0010.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.equinox:common:3.3.0-v20070426.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/equinox/common/3.3.0-v20070426/common-3.3.0-v20070426.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.jetty:jetty-continuation:8.1.15.v20140411.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/jetty/jetty-continuation/8.1.15.v20140411/jetty-continuation-8.1.15.v20140411.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.jetty:jetty-http:8.1.15.v20140411.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/jetty/jetty-http/8.1.15.v20140411/jetty-http-8.1.15.v20140411.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.jetty:jetty-io:8.1.15.v20140411.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/jetty/jetty-io/8.1.15.v20140411/jetty-io-8.1.15.v20140411.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.jetty:jetty-plus:8.1.15.v20140411.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/jetty/jetty-plus/8.1.15.v20140411/jetty-plus-8.1.15.v20140411.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.jetty:jetty-security:8.1.15.v20140411.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/jetty/jetty-security/8.1.15.v20140411/jetty-security-8.1.15.v20140411.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.jetty:jetty-server:8.1.15.v20140411.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/jetty/jetty-server/8.1.15.v20140411/jetty-server-8.1.15.v20140411.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.jetty:jetty-servlet:8.1.15.v20140411.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/jetty/jetty-servlet/8.1.15.v20140411/jetty-servlet-8.1.15.v20140411.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.jetty:jetty-util:8.1.15.v20140411.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/jetty/jetty-util/8.1.15.v20140411/jetty-util-8.1.15.v20140411.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.jetty:jetty-webapp:8.1.15.v20140411.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/jetty/jetty-webapp/8.1.15.v20140411/jetty-webapp-8.1.15.v20140411.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.jetty:jetty-xml:8.1.15.v20140411.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/jetty/jetty-xml/8.1.15.v20140411/jetty-xml-8.1.15.v20140411.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.scout.sdk.deps:org.eclipse.core.contenttype:3.5.100.v20160418-1621.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/scout/sdk/deps/org.eclipse.core.contenttype/3.5.100.v20160418-1621/org.eclipse.core.contenttype-3.5.100.v20160418-1621.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.scout.sdk.deps:org.eclipse.core.expressions:3.5.100.v20160418-1621.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/scout/sdk/deps/org.eclipse.core.expressions/3.5.100.v20160418-1621/org.eclipse.core.expressions-3.5.100.v20160418-1621.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.scout.sdk.deps:org.eclipse.core.filesystem:1.6.0.v20160503-1608.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/scout/sdk/deps/org.eclipse.core.filesystem/1.6.0.v20160503-1608/org.eclipse.core.filesystem-1.6.0.v20160503-1608.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.scout.sdk.deps:org.eclipse.core.jobs:3.8.0.v20160509-0411.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/scout/sdk/deps/org.eclipse.core.jobs/3.8.0.v20160509-0411/org.eclipse.core.jobs-3.8.0.v20160509-0411.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.scout.sdk.deps:org.eclipse.core.resources:3.11.0.v20160503-1608.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/scout/sdk/deps/org.eclipse.core.resources/3.11.0.v20160503-1608/org.eclipse.core.resources-3.11.0.v20160503-1608.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.scout.sdk.deps:org.eclipse.core.runtime:3.12.0.v20160606-1342.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/scout/sdk/deps/org.eclipse.core.runtime/3.12.0.v20160606-1342/org.eclipse.core.runtime-3.12.0.v20160606-1342.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.scout.sdk.deps:org.eclipse.equinox.common:3.8.0.v20160509-1230.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/scout/sdk/deps/org.eclipse.equinox.common/3.8.0.v20160509-1230/org.eclipse.equinox.common-3.8.0.v20160509-1230.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.scout.sdk.deps:org.eclipse.equinox.preferences:3.6.0.v20160120-1756.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/scout/sdk/deps/org.eclipse.equinox.preferences/3.6.0.v20160120-1756/org.eclipse.equinox.preferences-3.6.0.v20160120-1756.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.scout.sdk.deps:org.eclipse.equinox.registry:3.6.100.v20160223-2218.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/scout/sdk/deps/org.eclipse.equinox.registry/3.6.100.v20160223-2218/org.eclipse.equinox.registry-3.6.100.v20160223-2218.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.scout.sdk.deps:org.eclipse.osgi:3.11.0.v20160603-1336.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/scout/sdk/deps/org.eclipse.osgi/3.11.0.v20160603-1336/org.eclipse.osgi-3.11.0.v20160603-1336.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.swt:org.eclipse.swt.gtk.linux.x86_64:4.6.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/swt/org.eclipse.swt.gtk.linux.x86_64/4.6/org.eclipse.swt.gtk.linux.x86_64-4.6.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse:jface:3.3.0-i20070606-0010.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/jface/3.3.0-I20070606-0010/jface-3.3.0-I20070606-0010.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eobjects.sassyreader:sassyreader:0.5.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eobjects/sassyreader/SassyReader/0.5/SassyReader-0.5.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.fife.ui:rsyntaxtextarea:1.3.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/fife/ui/rsyntaxtextarea/1.3.2/rsyntaxtextarea-1.3.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.hibernate:hibernate-c3p0:3.6.9.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-c3p0/3.6.9.Final/hibernate-c3p0-3.6.9.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.hibernate:hibernate-commons-annotations:3.2.0.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-commons-annotations/3.2.0.Final/hibernate-commons-annotations-3.2.0.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.hibernate:hibernate-core:3.6.9.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-core/3.6.9.Final/hibernate-core-3.6.9.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.hibernate:hibernate-ehcache:3.6.9.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-ehcache/3.6.9.Final/hibernate-ehcache-3.6.9.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.ini4j:ini4j:0.5.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/ini4j/ini4j/0.5.1/ini4j-0.5.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.javassist:javassist:3.20.0-ga.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/javassist/javassist/3.20.0-GA/javassist-3.20.0-GA.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.mnode.mstor:mstor:0.9.13.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/mnode/mstor/mstor/0.9.13/mstor-0.9.13.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.odftoolkit:odfdom-java:0.8.6.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/odftoolkit/odfdom-java/0.8.6/odfdom-java-0.8.6.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.olap4j:olap4j-xmla:1.2.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/olap4j/olap4j-xmla/1.2.0/olap4j-xmla-1.2.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.olap4j:olap4j:1.2.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/olap4j/olap4j/1.2.0/olap4j-1.2.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.owasp.encoder:encoder:1.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/owasp/encoder/encoder/1.2/encoder-1.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.pentaho.reporting.engine:classic-core:8.3.0.0-371.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/pentaho/reporting/engine/classic-core/8.3.0.0-371/classic-core-8.3.0.0-371.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.pentaho.reporting.library:flute:8.3.0.0-371.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/pentaho/reporting/library/flute/8.3.0.0-371/flute-8.3.0.0-371.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.pentaho.reporting.library:libbase:8.3.0.0-371.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/pentaho/reporting/library/libbase/8.3.0.0-371/libbase-8.3.0.0-371.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.pentaho.reporting.library:libdocbundle:8.3.0.0-371.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/pentaho/reporting/library/libdocbundle/8.3.0.0-371/libdocbundle-8.3.0.0-371.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.pentaho.reporting.library:libfonts:8.3.0.0-371.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/pentaho/reporting/library/libfonts/8.3.0.0-371/libfonts-8.3.0.0-371.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.pentaho.reporting.library:libformat:8.3.0.0-371.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/pentaho/reporting/library/libformat/8.3.0.0-371/libformat-8.3.0.0-371.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.pentaho.reporting.library:libformula:8.3.0.0-371.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/pentaho/reporting/library/libformula/8.3.0.0-371/libformula-8.3.0.0-371.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.pentaho.reporting.library:libloader:8.3.0.0-371.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/pentaho/reporting/library/libloader/8.3.0.0-371/libloader-8.3.0.0-371.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.pentaho.reporting.library:libpixie:8.3.0.0-371.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/pentaho/reporting/library/libpixie/8.3.0.0-371/libpixie-8.3.0.0-371.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.pentaho.reporting.library:librepository:8.3.0.0-371.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/pentaho/reporting/library/librepository/8.3.0.0-371/librepository-8.3.0.0-371.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.pentaho.reporting.library:libserializer:8.3.0.0-371.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/pentaho/reporting/library/libserializer/8.3.0.0-371/libserializer-8.3.0.0-371.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.pentaho.reporting.library:libswing:8.3.0.0-371.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/pentaho/reporting/library/libswing/8.3.0.0-371/libswing-8.3.0.0-371.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.pentaho.reporting.library:libxml:8.3.0.0-371.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/pentaho/reporting/library/libxml/8.3.0.0-371/libxml-8.3.0.0-371.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.pentaho:actionsequence-dom:8.3.0.0-371.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/pentaho/actionsequence-dom/8.3.0.0-371/actionsequence-dom-8.3.0.0-371.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.pentaho:commons-database-model:8.3.0.0-371.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/pentaho/commons-database-model/8.3.0.0-371/commons-database-model-8.3.0.0-371.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.pentaho:commons-xul-core:8.3.0.0-371.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/pentaho/commons-xul-core/8.3.0.0-371/commons-xul-core-8.3.0.0-371.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.pentaho:commons-xul-swing:8.3.0.0-371.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/pentaho/commons-xul-swing/8.3.0.0-371/commons-xul-swing-8.3.0.0-371.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.pentaho:commons-xul-swt:8.3.0.0-371.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/pentaho/commons-xul-swt/8.3.0.0-371/commons-xul-swt-8.3.0.0-371.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.pentaho:pdi-engine-api:8.3.0.0-371.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/pentaho/pdi-engine-api/8.3.0.0-371/pdi-engine-api-8.3.0.0-371.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.pentaho:pentaho-registry:8.3.0.0-371.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/pentaho/pentaho-registry/8.3.0.0-371/pentaho-registry-8.3.0.0-371.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.postgresql:postgresql:42.2.5.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/postgresql/postgresql/42.2.5/postgresql-42.2.5.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.reactivestreams:reactive-streams:1.0.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/reactivestreams/reactive-streams/1.0.0/reactive-streams-1.0.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.samba.jcifs:jcifs:1.3.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/samba/jcifs/jcifs/1.3.3/jcifs-1.3.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.slf4j:slf4j-api:1.7.7.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/slf4j/slf4j-api/1.7.7/slf4j-api-1.7.7.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.snmp4j:snmp4j:1.9.3d.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/snmp4j/snmp4j/1.9.3d/snmp4j-1.9.3d.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework.security:spring-security-core:4.2.9.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/security/spring-security-core/4.2.9.RELEASE/spring-security-core-4.2.9.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework:spring-beans:4.3.22.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-beans/4.3.22.RELEASE/spring-beans-4.3.22.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework:spring-core:4.3.22.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-core/4.3.22.RELEASE/spring-core-4.3.22.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework:spring-expression:4.3.22.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-expression/4.3.22.RELEASE/spring-expression-4.3.22.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.syslog4j:syslog4j:0.9.46.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/syslog4j/syslog4j/0.9.46/syslog4j-0.9.46.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.w3c.css:sac:1.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/w3c/css/sac/1.3/sac-1.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.xerial.snappy:snappy-java:1.1.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/xerial/snappy/snappy-java/1.1.0/snappy-java-1.1.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.yaml:snakeyaml:1.7.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/yaml/snakeyaml/1.7/snakeyaml-1.7.jar"/>
+  </path>
+  
+  <path id="library.maven:_oro:oro:2.0.8.classpath">
+    <pathelement location="${path.variable.maven_repository}/oro/oro/2.0.8/oro-2.0.8.jar"/>
+  </path>
+  
+  <path id="library.maven:_pentaho-kettle:kettle-core:8.3.0.0-371.classpath">
+    <pathelement location="${path.variable.maven_repository}/pentaho-kettle/kettle-core/8.3.0.0-371/kettle-core-8.3.0.0-371.jar"/>
+  </path>
+  
+  <path id="library.maven:_pentaho-kettle:kettle-dbdialog:8.3.0.0-371.classpath">
+    <pathelement location="${path.variable.maven_repository}/pentaho-kettle/kettle-dbdialog/8.3.0.0-371/kettle-dbdialog-8.3.0.0-371.jar"/>
+  </path>
+  
+  <path id="library.maven:_pentaho-kettle:kettle-engine:8.3.0.0-371.classpath">
+    <pathelement location="${path.variable.maven_repository}/pentaho-kettle/kettle-engine/8.3.0.0-371/kettle-engine-8.3.0.0-371.jar"/>
+  </path>
+  
+  <path id="library.maven:_pentaho-kettle:kettle-ui-swt:8.3.0.0-371.classpath">
+    <pathelement location="${path.variable.maven_repository}/pentaho-kettle/kettle-ui-swt/8.3.0.0-371/kettle-ui-swt-8.3.0.0-371.jar"/>
+  </path>
+  
+  <path id="library.maven:_pentaho:metastore:8.3.0.0-371.classpath">
+    <pathelement location="${path.variable.maven_repository}/pentaho/metastore/8.3.0.0-371/metastore-8.3.0.0-371.jar"/>
+  </path>
+  
+  <path id="library.maven:_pentaho:mondrian:8.3.0.0-371.classpath">
+    <pathelement location="${path.variable.maven_repository}/pentaho/mondrian/8.3.0.0-371/mondrian-8.3.0.0-371.jar"/>
+  </path>
+  
+  <path id="library.maven:_pentaho:pentaho-capability-manager:8.3.0.0-371.classpath">
+    <pathelement location="${path.variable.maven_repository}/pentaho/pentaho-capability-manager/8.3.0.0-371/pentaho-capability-manager-8.3.0.0-371.jar"/>
+  </path>
+  
+  <path id="library.maven:_pentaho:pentaho-connections:8.3.0.0-371.classpath">
+    <pathelement location="${path.variable.maven_repository}/pentaho/pentaho-connections/8.3.0.0-371/pentaho-connections-8.3.0.0-371.jar"/>
+  </path>
+  
+  <path id="library.maven:_pentaho:pentaho-platform-api:8.3.0.0-371.classpath">
+    <pathelement location="${path.variable.maven_repository}/pentaho/pentaho-platform-api/8.3.0.0-371/pentaho-platform-api-8.3.0.0-371.jar"/>
+  </path>
+  
+  <path id="library.maven:_pentaho:pentaho-service-coordinator:8.3.0.0-371.classpath">
+    <pathelement location="${path.variable.maven_repository}/pentaho/pentaho-service-coordinator/8.3.0.0-371/pentaho-service-coordinator-8.3.0.0-371.jar"/>
+  </path>
+  
+  <path id="library.maven:_pentaho:pentaho-vfs-browser:8.3.0.0-371.classpath">
+    <pathelement location="${path.variable.maven_repository}/pentaho/pentaho-vfs-browser/8.3.0.0-371/pentaho-vfs-browser-8.3.0.0-371.jar"/>
+  </path>
+  
+  <path id="library.maven:_pentaho:simple-jndi:1.0.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/pentaho/simple-jndi/1.0.2/simple-jndi-1.0.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_rhino:js:1.7r3.classpath">
+    <pathelement location="${path.variable.maven_repository}/rhino/js/1.7R3/js-1.7R3.jar"/>
+  </path>
+  
+  <path id="library.maven:_rome:rome:1.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/rome/rome/1.0/rome-1.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_trilead-ssh2:trilead-ssh2:build213.classpath">
+    <pathelement location="${path.variable.maven_repository}/trilead-ssh2/trilead-ssh2/build213/trilead-ssh2-build213.jar"/>
+  </path>
+  
+  <path id="library.maven:_wsdl4j:wsdl4j-qname:1.6.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/wsdl4j/wsdl4j-qname/1.6.1/wsdl4j-qname-1.6.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_wsdl4j:wsdl4j:1.6.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/wsdl4j/wsdl4j/1.6.2/wsdl4j-1.6.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_xerces:xercesimpl:2.12.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/xerces/xercesImpl/2.12.0/xercesImpl-2.12.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_xml-apis:xml-apis-ext:1.3.04.classpath">
+    <pathelement location="${path.variable.maven_repository}/xml-apis/xml-apis-ext/1.3.04/xml-apis-ext-1.3.04.jar"/>
+  </path>
+  
+  <path id="library.maven:_xml-apis:xml-apis:1.4.01.classpath">
+    <pathelement location="${path.variable.maven_repository}/xml-apis/xml-apis/1.4.01/xml-apis-1.4.01.jar"/>
+  </path>
+  <!-- Register Custom Compiler Taskdefs -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <fileset dir="${javac2.home}">
+      <include name="javac2.jar"/>
+      <include name="jdom.jar"/>
+      <include name="asm-all*.jar"/>
+      <include name="forms-*.jar"/>
+    </fileset>
+  </path>
+  <target name="register.custom.compilers">
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+  </target>
+  
+  <!-- Modules -->
+  
+  <import file="${basedir}/module_birtoutput.xml"/>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.birtoutput" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.birtoutput" description="build all modules"/>
+  
+  <target name="all" depends="build.modules" description="build all"/>
+</project>

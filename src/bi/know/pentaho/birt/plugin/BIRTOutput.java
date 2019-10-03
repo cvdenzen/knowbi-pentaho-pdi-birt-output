@@ -128,10 +128,25 @@ public class BIRTOutput extends BaseStep implements StepInterface {
 		// Boot the BIRT reporting engine.
 		try {
 			String birtHomeStr = System.getProperty("user.dir") + System.getProperty("file.separator") + "plugins/BIRTOutput/";
+			System.out.println("birtHomeStr=" + birtHomeStr);
+			logBasic("log: birtHomeStr=" + birtHomeStr);
 			EngineConfig config = new EngineConfig();
-			
-			birtStream = getClass().getClassLoader().getResourceAsStream("plugins/BIRTOutput/birt.properties");
-			birtProps.load(birtStream); 
+			Thread.sleep(1000);
+			logBasic("EngineConfig created:"+config);
+
+			//final String propertyFilename="plugins/BIRTOutput/birt.properties";
+			final String propertyFilename="plugins/BIRTOutput/birt.properties";
+			birtStream = getClass().getClassLoader().getResourceAsStream(propertyFilename);
+			logBasic("birtStream="+birtStream);
+			if ((birtStream!=null) && (birtProps!=null)) {
+				birtProps.load(birtStream);
+				logBasic("birtProps loaded from birtStream");
+			} else {
+				logBasic("Property file not found: "+propertyFilename+"\n"
+				+"This file should contain two entries: logging.dir and logging.level.\n"
+				+"logging.dir=/var/log/pentaho/birt-logs\n"
+				+"logging.level=INFO");
+			}
 			
 			String logDir = birtProps.getProperty("logging.dir");
 			String logLevel = birtProps.getProperty("logging.level");
@@ -156,6 +171,10 @@ public class BIRTOutput extends BaseStep implements StepInterface {
 			return false;
 		}catch (BirtException be) {
 			be.printStackTrace();
+			return false;
+		}
+		catch (InterruptedException ex) {
+			ex.printStackTrace();
 			return false;
 		}
 	}
