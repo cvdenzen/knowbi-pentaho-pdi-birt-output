@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.logging.Level;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.eclipse.birt.core.exception.BirtException;
 import org.eclipse.birt.core.framework.IPlatformContext;
@@ -45,289 +46,298 @@ import org.pentaho.di.trans.step.StepMetaInterface;
 import bi.know.pentaho.birt.plugin.BIRTOutputMeta.ProcessorType;
 
 
-
 /**
- *
  * @author Bart Maertens
  * @since 24-aug-2011
  */
 
 public class BIRTOutput extends BaseStep implements StepInterface {
-	private static Class<?> PKG = BIRTOutput.class;
+    private static Class<?> PKG = BIRTOutput.class;
 
-	private BIRTOutputMeta meta;
-	private BIRTOutputData data;
+    private BIRTOutputMeta meta;
+    private BIRTOutputData data;
 
-	public static IReportEngine engine;
-	private IScalarParameterDefn scalar;
-	
-	private Properties birtProps = new Properties();
-	private InputStream birtStream = null; 
+    public static IReportEngine engine;
+    private IScalarParameterDefn scalar;
 
-	public BIRTOutput(StepMeta stepMeta, StepDataInterface stepDataInterface,
-			int copyNr, TransMeta transMeta, Trans trans) {
-		super(stepMeta, stepDataInterface, copyNr, transMeta, trans);
-	}
+    private Properties birtProps = new Properties();
+    private InputStream birtStream = null;
 
-	public boolean processRow(StepMetaInterface smi, StepDataInterface sdi)
-			throws KettleException {
-		meta = (BIRTOutputMeta) smi;
-		data = (BIRTOutputData) sdi;
+    public BIRTOutput(StepMeta stepMeta, StepDataInterface stepDataInterface,
+                      int copyNr, TransMeta transMeta, Trans trans) {
+        super(stepMeta, stepDataInterface, copyNr, transMeta, trans);
+    }
 
-		boolean result = true;
+    public boolean processRow(StepMetaInterface smi, StepDataInterface sdi)
+            throws KettleException {
+        meta = (BIRTOutputMeta) smi;
+        data = (BIRTOutputData) sdi;
 
-		// For every row we read, we execute a report
-		Object[] r = getRow();
+        boolean result = true;
 
-		// All done, signal this to the next steps...
-		if (r == null) {
-			setOutputDone();
-			return false;
-		}
+        // For every row we read, we execute a report
+        Object[] r = getRow();
 
-		if (first) {
-			first = false;
+        // All done, signal this to the next steps...
+        if (r == null) {
+            setOutputDone();
+            return false;
+        }
 
-			data.inputFieldIndex = getInputRowMeta().indexOfValue(
-					meta.getInputFileField());
-			if (data.inputFieldIndex < 0) {
-				throw new KettleException(BaseMessages.getString(PKG,
-						"BIRTReportOutput.Exception.CanNotFindField",
-						meta.getInputFileField()));
-			}
-			data.outputFieldIndex = getInputRowMeta().indexOfValue(
-					meta.getOutputFileField());
-			if (data.inputFieldIndex < 0) {
-				throw new KettleException(BaseMessages.getString(PKG,
-						"BIRTReportOutput.Exception.CanNotFindField",
-						meta.getOutputFileField()));
-			}
+        if (first) {
+            first = false;
 
-		}
+            data.inputFieldIndex = getInputRowMeta().indexOfValue(
+                    meta.getInputFileField());
+            if (data.inputFieldIndex < 0) {
+                throw new KettleException(BaseMessages.getString(PKG,
+                        "BIRTReportOutput.Exception.CanNotFindField",
+                        meta.getInputFileField()));
+            }
+            data.outputFieldIndex = getInputRowMeta().indexOfValue(
+                    meta.getOutputFileField());
+            if (data.inputFieldIndex < 0) {
+                throw new KettleException(BaseMessages.getString(PKG,
+                        "BIRTReportOutput.Exception.CanNotFindField",
+                        meta.getOutputFileField()));
+            }
 
-		String sourceFilename = getInputRowMeta().getString(r,
-				data.inputFieldIndex);
-		String targetFilename = getInputRowMeta().getString(r,
-				data.outputFieldIndex);
+        }
 
-		processReport(r, sourceFilename, targetFilename,
-				meta.getOutputProcessorType());
+        String sourceFilename = getInputRowMeta().getString(r,
+                data.inputFieldIndex);
+        String targetFilename = getInputRowMeta().getString(r,
+                data.outputFieldIndex);
 
-		// in case we want the input data to go to more steps.
-		//
-		putRow(getInputRowMeta(), r);
+        processReport(r, sourceFilename, targetFilename,
+                meta.getOutputProcessorType());
 
-		if (checkFeedback(getLinesOutput()))
-			logBasic(BaseMessages.getString(PKG,
-					"BIRTReportOutput.Log.LineNumber") + getLinesOutput()); //$NON-NLS-1$
+        // in case we want the input data to go to more steps.
+        //
+        putRow(getInputRowMeta(), r);
 
-		return result;
-	}
+        if (checkFeedback(getLinesOutput()))
+            logBasic(BaseMessages.getString(PKG,
+                    "BIRTReportOutput.Log.LineNumber") + getLinesOutput()); //$NON-NLS-1$
 
-	public boolean init(StepMetaInterface smi, StepDataInterface sdi){
-		// Boot the BIRT reporting engine.
-		try {
-			String birtHomeStr = System.getProperty("user.dir") + System.getProperty("file.separator") + "plugins/BIRTOutput/";
-			System.out.println("birtHomeStr=" + birtHomeStr);
-			logBasic("log: birtHomeStr=" + birtHomeStr);
-			EngineConfig config = new EngineConfig();
-			Thread.sleep(1000);
-			logBasic("EngineConfig created:"+config);
+        return result;
+    }
 
-			//final String propertyFilename="plugins/BIRTOutput/birt.properties";
-			final String propertyFilename="plugins/BIRTOutput/birt.properties";
-			birtStream = getClass().getClassLoader().getResourceAsStream(propertyFilename);
-			logBasic("birtStream="+birtStream);
-			if ((birtStream!=null) && (birtProps!=null)) {
-				birtProps.load(birtStream);
-				logBasic("birtProps loaded from birtStream");
-			} else {
-				logBasic("Property file not found: "+propertyFilename+"\n"
-				+"This file should contain two entries: logging.dir and logging.level.\n"
-				+"logging.dir=/var/log/pentaho/birt-logs\n"
-				+"logging.level=INFO");
-			}
-			
-			String logDir = birtProps.getProperty("logging.dir");
-			String logLevel = birtProps.getProperty("logging.level");
-			
-			System.out.println("logging dir: " + logDir);
-			System.out.println("logging dir: " + logLevel);
-			
+    public boolean init(StepMetaInterface smi, StepDataInterface sdi) {
+        // Boot the BIRT reporting engine.
+        try {
+            String birtHomeStr = System.getProperty("user.dir") + System.getProperty("file.separator") + "plugins/BIRTOutput/";
+            System.out.println("birtHomeStr=" + birtHomeStr);
+            logBasic("log: birtHomeStr=" + birtHomeStr);
+            EngineConfig config = new EngineConfig();
+            Thread.sleep(1000);
+            logBasic("EngineConfig created:" + config);
+
+            //final String propertyFilename="plugins/BIRTOutput/birt.properties";
+            final String propertyFilename = "plugins/BIRTOutput/birt.properties";
+            birtStream = getClass().getClassLoader().getResourceAsStream(propertyFilename);
+            logBasic("birtStream=" + birtStream);
+            if ((birtStream != null) && (birtProps != null)) {
+                birtProps.load(birtStream);
+                logBasic("birtProps loaded from birtStream");
+            } else {
+                String defLogDir = "/var/log/pentaho/birt-logs";
+                String defLogLevel = "INFO";
+                // Keep messages together
+                try {
+                    staticLock.lock();
+                    logBasic("Property file not found: " + propertyFilename);
+                    logBasic("This file should contain two entries: logging.dir and logging.level.");
+                    logBasic("logging.dir=" + defLogDir);
+                    logBasic("logging.level=" + defLogLevel);
+                    birtProps.setProperty("logging.dir", defLogDir);
+                    birtProps.setProperty("logging.level", defLogLevel);
+                    logBasic("Logging set to default values");
+                } finally {
+                    staticLock.unlock();
+                }
+            }
+
+            String logDir = birtProps.getProperty("logging.dir");
+            String logLevel = birtProps.getProperty("logging.level");
+
+            System.out.println("logging dir: " + logDir);
+            System.out.println("logging dir: " + logLevel);
+
 //			config.setLogConfig("/tmp", Level.ALL);
-			config.setLogConfig(logDir, Level.parse(logLevel));
-			Platform.startup(config);
-			config.setEngineHome("");
-			
-			IPlatformContext context = new PlatformFileContext();
-			config.setPlatformContext( context );			
-			
-			IReportEngineFactory factory = (IReportEngineFactory)Platform.createFactoryObject(IReportEngineFactory.EXTENSION_REPORT_ENGINE_FACTORY);
-			engine = factory.createReportEngine(config);
-			
-		    return super.init(smi, sdi);
-		}catch(IOException ioe){
-			ioe.printStackTrace();
-			return false;
-		}catch (BirtException be) {
-			be.printStackTrace();
-			return false;
-		}
-		catch (InterruptedException ex) {
-			ex.printStackTrace();
-			return false;
-		}
-	}
+            config.setLogConfig(logDir, Level.parse(logLevel));
+            Platform.startup(config);
+            config.setEngineHome("");
 
-	public static IReportRunnable loadMasterReport(String sourceFilename)
-			throws Exception {
+            IPlatformContext context = new PlatformFileContext();
+            config.setPlatformContext(context);
 
-		IReportRunnable report = engine.openReportDesign(sourceFilename);
+            IReportEngineFactory factory = (IReportEngineFactory) Platform.createFactoryObject(IReportEngineFactory.EXTENSION_REPORT_ENGINE_FACTORY);
+            engine = factory.createReportEngine(config);
 
-		return report;
-	}
+            return super.init(smi, sdi);
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            return false;
+        } catch (BirtException be) {
+            be.printStackTrace();
+            return false;
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
 
-	private void processReport(Object[] r, String sourceFilename,
-			String targetFilename, ProcessorType outputProcessorType)
-			throws KettleException {
-		try {
+    public static IReportRunnable loadMasterReport(String sourceFilename)
+            throws Exception {
 
-			// Load the master report from the .rptdesign.
-			//
-			IReportRunnable report = loadMasterReport(sourceFilename);
-			IRunAndRenderTask task = engine.createRunAndRenderTask(report);
+        IReportRunnable report = engine.openReportDesign(sourceFilename);
 
-			// Set the parameters values that are present in the various
-			// fields...
-			IGetParameterDefinitionTask paramTask = engine
-					.createGetParameterDefinitionTask(report);
-			Collection definition = paramTask.getParameterDefns(true);
+        return report;
+    }
 
-			for (String parameterName : meta.getParameterFieldMap().keySet()) {
-				String fieldName = meta.getParameterFieldMap().get(
-						parameterName);
-				if (fieldName != null) {
-					int index = getInputRowMeta().indexOfValue(fieldName);
-					if (index < 0) {
-						throw new KettleException(
-								BaseMessages
-										.getString(
-												PKG,
-												"BIRTReportOutput.Exception.CanNotFindField",
-												fieldName));
-					}
+    private void processReport(Object[] r, String sourceFilename,
+                               String targetFilename, ProcessorType outputProcessorType)
+            throws KettleException {
+        try {
 
-					int paramType = findParameterClass(definition,
-							parameterName);
-					Object value = null;
-					if (paramType != -1) {
-						if (paramType == IParameterDefn.TYPE_ANY) {
-							value = getInputRowMeta().getValueMeta(index)	.convertToNormalStorageType(r[index]);
-						} else if (paramType == IParameterDefn.TYPE_STRING) {
-							value = getInputRowMeta().getString(r, index);
-						} else if (paramType == IParameterDefn.TYPE_FLOAT) {
-							value = getInputRowMeta().getNumber(r, index);
-						} else if (paramType == IParameterDefn.TYPE_DECIMAL) {
-							value = getInputRowMeta().getBigNumber(r, index);
-						} else if (paramType == IParameterDefn.TYPE_DATE_TIME) {
-							value = getInputRowMeta().getDate(r, index);
-						} else if (paramType == IParameterDefn.TYPE_BOOLEAN) {
-							value = getInputRowMeta().getBoolean(r, index);
-						} else if (paramType == IParameterDefn.TYPE_INTEGER) {
-							value = getInputRowMeta().getInteger(r, index);
-						} else if (paramType == IParameterDefn.TYPE_DATE) {
-							value = getInputRowMeta().getDate(r, index);
-						} else if (paramType == IParameterDefn.TYPE_TIME) {
-							value = getInputRowMeta().getDate(r, index);
-						}
-				         task.setParameterValue(parameterName, value);
-					} else {
-						// This parameter was not found, log this as a
-						// warning...
-						//
-						logBasic(BaseMessages.getString(PKG,
-								"BIRTOutput.Log.ParameterNotFoundInReport",
-								parameterName, sourceFilename));
-					}
+            // Load the master report from the .rptdesign.
+            //
+            IReportRunnable report = loadMasterReport(sourceFilename);
+            IRunAndRenderTask task = engine.createRunAndRenderTask(report);
 
-				}
-			}
+            // Set the parameters values that are present in the various
+            // fields...
+            IGetParameterDefinitionTask paramTask = engine
+                    .createGetParameterDefinitionTask(report);
+            Collection definition = paramTask.getParameterDefns(true);
 
-			IRenderOption options = new RenderOption();
+            for (String parameterName : meta.getParameterFieldMap().keySet()) {
+                String fieldName = meta.getParameterFieldMap().get(
+                        parameterName);
+                if (fieldName != null) {
+                    int index = getInputRowMeta().indexOfValue(fieldName);
+                    if (index < 0) {
+                        throw new KettleException(
+                                BaseMessages
+                                        .getString(
+                                                PKG,
+                                                "BIRTReportOutput.Exception.CanNotFindField",
+                                                fieldName));
+                    }
 
-			switch (outputProcessorType) {
-			case PDF:
-				options.setOutputFormat("pdf");
-				PDFRenderOption pdfOptions = new PDFRenderOption(options);
-				pdfOptions.setOption(IPDFRenderOption.PAGE_OVERFLOW, "OUTPUT_TO_MULTIPLE_PAGES");
-				//pdfOptions.setOption(IPDFRenderOption.FIT_TO_PAGE, true);
-				//pdfOptions.setOption(IPDFRenderOption.PAGEBREAK_PAGINATION_ONLY, true);
-				break;
-			case HTML:
-				options.setOutputFormat("html");
-				HTMLRenderOption htmlOptions = new HTMLRenderOption(options);
-				htmlOptions.setImageDirectory("output/image");
-				htmlOptions.setHtmlPagination(false);
-				htmlOptions.setBaseImageURL("http://myhost/prependme?image=1");
-				htmlOptions.setHtmlRtLFlag(false);
-				htmlOptions.setEmbeddable(false);
-				break;
-			case XLS:
-				options.setOutputFormat("xls");
-				break;
-			case POSTSCRIPT:
-				options.setOutputFormat("postscript");
-				break;
-			case DOC:
-				options.setOutputFormat("doc");
-				break;
-			case PPT:
-				options.setOutputFormat("ppt");
-				break;
-			}
+                    int paramType = findParameterClass(definition,
+                            parameterName);
+                    Object value = null;
+                    if (paramType != -1) {
+                        if (paramType == IParameterDefn.TYPE_ANY) {
+                            value = getInputRowMeta().getValueMeta(index).convertToNormalStorageType(r[index]);
+                        } else if (paramType == IParameterDefn.TYPE_STRING) {
+                            value = getInputRowMeta().getString(r, index);
+                        } else if (paramType == IParameterDefn.TYPE_FLOAT) {
+                            value = getInputRowMeta().getNumber(r, index);
+                        } else if (paramType == IParameterDefn.TYPE_DECIMAL) {
+                            value = getInputRowMeta().getBigNumber(r, index);
+                        } else if (paramType == IParameterDefn.TYPE_DATE_TIME) {
+                            value = getInputRowMeta().getDate(r, index);
+                        } else if (paramType == IParameterDefn.TYPE_BOOLEAN) {
+                            value = getInputRowMeta().getBoolean(r, index);
+                        } else if (paramType == IParameterDefn.TYPE_INTEGER) {
+                            value = getInputRowMeta().getInteger(r, index);
+                        } else if (paramType == IParameterDefn.TYPE_DATE) {
+                            value = getInputRowMeta().getDate(r, index);
+                        } else if (paramType == IParameterDefn.TYPE_TIME) {
+                            value = getInputRowMeta().getDate(r, index);
+                        }
+                        task.setParameterValue(parameterName, value);
+                    } else {
+                        // This parameter was not found, log this as a
+                        // warning...
+                        //
+                        logBasic(BaseMessages.getString(PKG,
+                                "BIRTOutput.Log.ParameterNotFoundInReport",
+                                parameterName, sourceFilename));
+                    }
 
-			options.setOutputFileName(targetFilename);
-			task.setRenderOption(options);
-			task.run();
+                }
+            }
 
-			ResultFile resultFile = new ResultFile(
-					ResultFile.FILE_TYPE_GENERAL, KettleVFS.getFileObject(
-							targetFilename, getTransMeta()), getTransMeta()
-							.getName(), getStepname());
-			resultFile
-					.setComment("This file was created with the Pentaho Data Integration BIRT Output step");
-			addResultFile(resultFile);
+            IRenderOption options = new RenderOption();
 
-		} catch (Exception e) {
+            switch (outputProcessorType) {
+                case PDF:
+                    options.setOutputFormat("pdf");
+                    PDFRenderOption pdfOptions = new PDFRenderOption(options);
+                    pdfOptions.setOption(IPDFRenderOption.PAGE_OVERFLOW, "OUTPUT_TO_MULTIPLE_PAGES");
+                    //pdfOptions.setOption(IPDFRenderOption.FIT_TO_PAGE, true);
+                    //pdfOptions.setOption(IPDFRenderOption.PAGEBREAK_PAGINATION_ONLY, true);
+                    break;
+                case HTML:
+                    options.setOutputFormat("html");
+                    HTMLRenderOption htmlOptions = new HTMLRenderOption(options);
+                    htmlOptions.setImageDirectory("output/image");
+                    htmlOptions.setHtmlPagination(false);
+                    htmlOptions.setBaseImageURL("http://myhost/prependme?image=1");
+                    htmlOptions.setHtmlRtLFlag(false);
+                    htmlOptions.setEmbeddable(false);
+                    break;
+                case XLS:
+                    options.setOutputFormat("xls");
+                    break;
+                case POSTSCRIPT:
+                    options.setOutputFormat("postscript");
+                    break;
+                case DOC:
+                    options.setOutputFormat("doc");
+                    break;
+                case PPT:
+                    options.setOutputFormat("ppt");
+                    break;
+            }
 
-			throw new KettleException(
-					BaseMessages.getString(
-							PKG,
-							"BIRTReportOutput.Exception.UnexpectedErrorRenderingReport",
-							sourceFilename, targetFilename,
-							outputProcessorType.getDescription()), e);
-		}
-	}
+            options.setOutputFileName(targetFilename);
+            task.setRenderOption(options);
+            task.run();
 
-	private int findParameterClass(Collection definition, String parameterName) {
-		Iterator<IParameterDefnBase> i = definition.iterator();
-		while (i.hasNext()) {
-			IParameterDefnBase param = (IParameterDefnBase) i.next();
-			if (param instanceof IParameterGroupDefn) {
-				IParameterGroupDefn group = (IParameterGroupDefn) param;
-				Iterator i2 = group.getContents().iterator();
-				while (i2.hasNext()) {
-					scalar = (IScalarParameterDefn) i2.next();
-					if (scalar.getName().equals(parameterName))
-						return scalar.getDataType();
-				}
-			} else {
-				scalar = (IScalarParameterDefn) param;
-				if (scalar.getName().equals(parameterName))
-					return scalar.getDataType();
-			}
-		}
-		return -1;
-	}
+            ResultFile resultFile = new ResultFile(
+                    ResultFile.FILE_TYPE_GENERAL, KettleVFS.getFileObject(
+                    targetFilename, getTransMeta()), getTransMeta()
+                    .getName(), getStepname());
+            resultFile
+                    .setComment("This file was created with the Pentaho Data Integration BIRT Output step");
+            addResultFile(resultFile);
 
+        } catch (Exception e) {
+
+            throw new KettleException(
+                    BaseMessages.getString(
+                            PKG,
+                            "BIRTReportOutput.Exception.UnexpectedErrorRenderingReport",
+                            sourceFilename, targetFilename,
+                            outputProcessorType.getDescription()), e);
+        }
+    }
+
+    private int findParameterClass(Collection definition, String parameterName) {
+        Iterator<IParameterDefnBase> i = definition.iterator();
+        while (i.hasNext()) {
+            IParameterDefnBase param = (IParameterDefnBase) i.next();
+            if (param instanceof IParameterGroupDefn) {
+                IParameterGroupDefn group = (IParameterGroupDefn) param;
+                Iterator i2 = group.getContents().iterator();
+                while (i2.hasNext()) {
+                    scalar = (IScalarParameterDefn) i2.next();
+                    if (scalar.getName().equals(parameterName))
+                        return scalar.getDataType();
+                }
+            } else {
+                scalar = (IScalarParameterDefn) param;
+                if (scalar.getName().equals(parameterName))
+                    return scalar.getDataType();
+            }
+        }
+        return -1;
+    }
+
+    final static ReentrantLock staticLock = new ReentrantLock();
 }
